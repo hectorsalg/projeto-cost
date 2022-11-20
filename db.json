@@ -21,6 +21,17 @@
       "cost": 0,
       "services": [],
       "id": 4
+    },
+    {
+      "name": "memel",
+      "budget": "10000000000000000000000",
+      "category": {
+        "id": "3",
+        "name": "Design"
+      },
+      "cost": 0,
+      "services": [],
+      "id": 5
     }
   ],
   "categories": [
