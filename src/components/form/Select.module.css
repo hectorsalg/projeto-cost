@@ -11,6 +11,7 @@
 }
 
 .formControl select {
+    text-align: center;
     padding: .7em;
     border-radius: 0;
     border: none;
