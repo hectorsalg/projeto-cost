@@ -41,8 +41,7 @@ export default function Project() {
 
   function editPost(project) {
     setMessage("");
-
-    // budget validation
+    
     if (project.budget < project.cost) {
       setMessage("O orçamento não pode ser menor que o custo do projeto!");
       setType("error");
@@ -69,7 +68,6 @@ export default function Project() {
   function createService(project) {
     setMessage("");
 
-    // last service
     const lastService = project.services[project.services.length - 1];
 
     lastService.id = uuidv4();
@@ -81,7 +79,7 @@ export default function Project() {
     if (newCost > parseFloat(project.budget)) {
       setMessage("Orçamento ultrapassado, verifique o valor do serviço!");
       setType("error");
-      project.service.pop();
+      project.services.pop();
       return false;
     }
 
@@ -96,7 +94,10 @@ export default function Project() {
     })
       .then((resp) => resp.json())
       .then((data) => {
+        setMessage("Serviço adicionado com sucesso!");
+        setType("success");
         setShowServiceForm(false);
+        setServices(data.services);
       })
       .catch((err) => console.log(err));
   }
@@ -108,10 +109,9 @@ export default function Project() {
       (service) => service.id !== id
     );
 
-    const projectUpdated = project;
+    const projectUpdated = { ...project };
 
     projectUpdated.services = serviceUpdated;
-
     projectUpdated.cost = parseFloat(projectUpdated.cost) - parseFloat(cost);
 
     fetch(`https://projeto-api-cost.vercel.app/projects/${projectUpdated.id}`, {
@@ -123,8 +123,8 @@ export default function Project() {
     })
       .then((resp) => resp.json())
       .then((data) => {
-        setProject(projectUpdated);
-        setServices(serviceUpdated);
+        setProject(data);
+        setServices(data.services);
         setMessage("Serviço removido com sucesso!");
         setType("success");
       })
