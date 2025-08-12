@@ -12,7 +12,7 @@ export default function ProjectForm({ handleSubmit, btnText, projectData }) {
     const [project, setProject] = useState(projectData || {});
 
     useEffect(() => {
-        fetch(`${process.env.API_URL}/categories`, {
+        fetch("https://projeto-api-cost.vercel.app/categories", {
         method: "GET",
         headers: {
             'Content-Type': 'application/json',
