@@ -1,6 +1,7 @@
 {
   "name": "projeto-cost",
   "version": "0.1.0",
+  "homepage": "projeto-cost/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
