@@ -1,4 +1,4 @@
-name: deploy
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -6,27 +6,28 @@ on:
       - master
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+
     steps:
-      - uses: actions/checkout@v3
-      
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
         with:
-          node-version: '16'
-          
-      - name: Install dependencies and build
+          node-version: '20'
+
+      - name: Install and build
         run: |
           npm ci
           npm run build
-      
-      - name: List build files
-        run: ls -la build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: 'build/'
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
-          publish_branch: gh-pages 
-          force_orphan: true
+        uses: actions/deploy-pages@v4
