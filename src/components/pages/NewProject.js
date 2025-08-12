@@ -14,7 +14,7 @@ export default function NewProject() {
         project.cost = 0;
         project.services = [];
 
-        fetch('http://localhost:5000/projects', {
+        fetch('https://projeto-api-cost.vercel.app/projects', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
